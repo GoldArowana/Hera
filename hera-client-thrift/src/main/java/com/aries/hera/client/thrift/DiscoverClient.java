@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DiscoverClient {
     public static String ping() throws TTransportException, CallFailedException {
-        DiscoverService.Client client = ClientUtils.getSingleClient();
+        DiscoverService.Client client = HeraClient.getSingleClient();
         try {
             return client.ping();
         } catch (TException e) {
@@ -19,7 +19,7 @@ public class DiscoverClient {
     }
 
     public static List<ServiceInfo> getServices(String serviceName) throws TTransportException, CallFailedException {
-        DiscoverService.Client client = ClientUtils.getSingleClient();
+        DiscoverService.Client client = HeraClient.getSingleClient();
         List<ServiceInfo> loloServiceList = null;
         try {
             loloServiceList = client.getServiceList(serviceName);
@@ -30,7 +30,7 @@ public class DiscoverClient {
     }
 
     public static short registe(ServiceInfo serviceInfo) throws TTransportException, CallFailedException {
-        DiscoverService.Client client = ClientUtils.getSingleClient();
+        DiscoverService.Client client = HeraClient.getSingleClient();
         try {
             short state = client.registe(serviceInfo);
             if (state == 1) {
@@ -46,7 +46,7 @@ public class DiscoverClient {
      * jvm关闭时，会执行本方法里的线程
      */
     private static void startShutdownHoot(ServiceInfo serviceInfo) throws TTransportException {
-        DiscoverService.Client client = ClientUtils.getSingleClient();
+        DiscoverService.Client client = HeraClient.getSingleClient();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 client.cancel(serviceInfo);

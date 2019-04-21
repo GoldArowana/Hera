@@ -6,7 +6,7 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
-public class ClientUtils {
+public class HeraClient {
 
     public static DiscoverService.Client getSingleClient() throws TTransportException {
         TTransport transport = TransportFactory.getSingleTransport();
