@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverUtils {
-    public static boolean registe(ServicePojo servicePojo) {
+
+    /**
+     * 返回1表示注册成功
+     * 返回0表示，已经存在该节点，未变更。
+     * 返回-1表示，异常，注册失败
+     */
+    public static short registe(ServicePojo servicePojo) {
         CuratorFramework client = ClientFactory.getClient();
         try {
             // 此处最好加上分布式锁。
@@ -21,15 +27,17 @@ public class DiscoverUtils {
         }
 
         try {
-            String appPath = "/discover/" + servicePojo.getName() + "/" + servicePojo.getIp() + ":" + servicePojo.getPort();
+            String appPath = "/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort();
             if (client.checkExists().forPath(appPath) == null) {
                 client.create().forPath(appPath);
-                return true;
+                return 1;
+            } else {
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return false;
     }
 
     public static List<ServicePojo> discover(String name) {
@@ -41,7 +49,7 @@ public class DiscoverUtils {
                 String[] ipPortArr = address.split(":");
                 ServicePojo servicePojo = ServicePojo.builder()
                         .name(name)
-                        .ip(ipPortArr[0])
+                        .host(ipPortArr[0])
                         .port(Integer.parseInt(ipPortArr[1]))
                         .build();
                 servicePojosList.add(servicePojo);
@@ -50,5 +58,16 @@ public class DiscoverUtils {
             e.printStackTrace();
         }
         return servicePojosList;
+    }
+
+    public static boolean cancel(ServicePojo servicePojo) {
+        CuratorFramework client = ClientFactory.getClient();
+        try {
+            client.delete().forPath("/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

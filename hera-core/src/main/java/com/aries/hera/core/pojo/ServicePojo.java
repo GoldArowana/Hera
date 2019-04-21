@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class ServicePojo {
     private String name;
-    private String ip;
+    private String host;
     private int port;
 }

@@ -1,16 +1,15 @@
 package com.aries.hera.core.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.*;
 import java.util.Objects;
 import java.util.Properties;
 
-@AllArgsConstructor
 public class PropertiesProxy {
     private String propertiesName;
+
+    public PropertiesProxy(String propertiesName) {
+        this.propertiesName = propertiesName;
+    }
 
     public String readProperty(String key) {
         String value = "";

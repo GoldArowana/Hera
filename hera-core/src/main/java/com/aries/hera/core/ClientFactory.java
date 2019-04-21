@@ -16,7 +16,7 @@ public class ClientFactory {
             synchronized (ClientFactory.class) {
                 if (client == null) {
                     String zookeeperAddress = new PropertiesProxy(CONF_PROPERTIES).readProperty(ZK_ADDRESS);
-                     client = CuratorFrameworkFactory.builder()
+                    client = CuratorFrameworkFactory.builder()
                             .connectString(zookeeperAddress)//zkClint连接地址
                             .connectionTimeoutMs(2000)//连接超时时间
                             .sessionTimeoutMs(10000)//会话超时时间
