@@ -1,9 +1,12 @@
 package com.aries.hera.core.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.util.Objects;
 import java.util.Properties;
 
+@Slf4j
 public class PropertiesProxy {
     private String propertiesName;
 
@@ -18,8 +21,7 @@ public class PropertiesProxy {
             p.load(is);
             value = p.getProperty(key);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("PropertiesProxy error:{}", e.getMessage(), e);
         }
         return value;
     }
@@ -29,8 +31,7 @@ public class PropertiesProxy {
         try (InputStream is = PropertiesProxy.class.getClassLoader().getResourceAsStream(propertiesName)) {
             p.load(is);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("PropertiesProxy error:{}", e.getMessage(), e);
         }
         return p;
     }
@@ -45,8 +46,7 @@ public class PropertiesProxy {
             properties.store(os, key);
             os.flush();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("PropertiesProxy error:{}", e.getMessage(), e);
         }
     }
 }

@@ -5,10 +5,31 @@ import com.aries.com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.client.thrift.exception.CallFailedException;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DiscoverClient {
+    private static final AtomicBoolean shutdownHookFlag = new AtomicBoolean(false);
+
+    private static final Logger log = LoggerFactory.getLogger(DiscoverClient.class);
+
+    private static final Set<ServiceInfo> needShutdownServices = new HashSet<>();
+
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                shutAllDown();
+            } catch (TTransportException e) {
+                log.error("shut all down error!!! {}", e.getMessage(), e);
+            }
+        }));
+    }
+
     public static String ping() throws TTransportException, CallFailedException {
         DiscoverService.Client client = HeraClient.getSingleClient();
         try {
@@ -31,10 +52,11 @@ public class DiscoverClient {
 
     public static short registe(ServiceInfo serviceInfo) throws TTransportException, CallFailedException {
         DiscoverService.Client client = HeraClient.getSingleClient();
+        ServiceInfo serviceInfoCopied = new ServiceInfo(serviceInfo);
         try {
-            short state = client.registe(serviceInfo);
-            if (state == 1) {
-                startShutdownHoot(serviceInfo);
+            short state = client.registe(serviceInfoCopied);
+            if (state == 1 || state == 0) {
+                needShutdownServices.add(serviceInfo);
             }
             return state;
         } catch (TException e) {
@@ -50,15 +72,32 @@ public class DiscoverClient {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 client.cancel(serviceInfo);
-                System.out.println("注销服务成功：name" + serviceInfo.getName()
-                        + ", host：" + serviceInfo.getHost()
-                        + ", port" + serviceInfo.getPort());
+                log.info("注销服务成功：name" + serviceInfo.getName()
+                        + ", host:" + serviceInfo.getHost()
+                        + ", port:" + serviceInfo.getPort());
             } catch (TException e) {
-                System.out.println("注销服务失败：name" + serviceInfo.getName()
-                        + ", host：" + serviceInfo.getHost()
-                        + ", port" + serviceInfo.getPort());
-                e.printStackTrace();
+                log.error("注销服务失败：name" + serviceInfo.getName()
+                        + ", host:" + serviceInfo.getHost()
+                        + ", port:" + serviceInfo.getPort(), e);
             }
         }));
+
+    }
+
+    public static void shutAllDown() throws TTransportException {
+        DiscoverService.Client client = HeraClient.getSingleClient();
+        for (ServiceInfo serviceInfo : needShutdownServices) {
+            try {
+                client.cancel(serviceInfo);
+                log.info("注销服务成功：name" + serviceInfo.getName()
+                        + ", host:" + serviceInfo.getHost()
+                        + ", port:" + serviceInfo.getPort());
+            } catch (TException e) {
+                log.error("注销服务失败：name" + serviceInfo.getName()
+                        + ", host:" + serviceInfo.getHost()
+                        + ", port:" + serviceInfo.getPort(), e);
+            }
+        }
+        HeraClient.close();
     }
 }

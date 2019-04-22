@@ -4,6 +4,7 @@ import com.aries.com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.core.DiscoverUtils;
 import com.aries.hera.core.pojo.ServicePojo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 
 import java.util.Collections;
@@ -11,11 +12,12 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class DiscoverServiceImpl implements DiscoverService.Iface {
 
 
     public String ping() throws TException {
-        System.out.println("收到ping请求");
+        log.info("收到一个ping请求，返回pong。");
         return "pong";
     }
 
@@ -23,8 +25,10 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
     public List<ServiceInfo> getServiceList(String serviceName) throws TException {
         List<ServicePojo> servicePojos = DiscoverUtils.discover(serviceName);
         if (servicePojos == null) {
+            log.warn("服务：{}未找到。返回空列表", serviceName);
             return Collections.emptyList();
         }
+        log.info("查询服务，查询到:{}", servicePojos);
         return servicePojos.stream().map(servicePojo2ServiceInfo).collect(Collectors.toList());
     }
 
@@ -46,11 +50,13 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
      */
     @Override
     public short registe(ServiceInfo serviceInfo) throws TException {
+        log.info("注册，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
         return DiscoverUtils.registe(serviceInfo2ServicePojo2.apply(serviceInfo));
     }
 
     @Override
     public boolean cancel(ServiceInfo serviceInfo) throws TException {
+        log.info("注销服务，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
         return DiscoverUtils.cancel(serviceInfo2ServicePojo2.apply(serviceInfo));
     }
 

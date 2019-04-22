@@ -7,7 +7,7 @@
 <Configuration status="ERROR" monitorInterval="300">
     <properties>
         <property name="LOG_HOME">/opt/log</property>
-        <property name="PROJECT_NAME">hera</property>
+        <property name="PROJECT_NAME">hera-client</property>
     </properties>
     <Appenders>
         <Console name="con" target="SYSTEM_OUT"> <!-- 定义类型为Console的Appender -->

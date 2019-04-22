@@ -2,11 +2,13 @@ package com.aries.hera.core;
 
 import com.aries.hera.core.pojo.ServicePojo;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class DiscoverUtils {
 
     /**
@@ -15,6 +17,7 @@ public class DiscoverUtils {
      * 返回-1表示，异常，注册失败
      */
     public static short registe(ServicePojo servicePojo) {
+        log.info("【注册服务】准备中, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
         CuratorFramework client = ClientFactory.getClient();
         try {
             // 此处最好加上分布式锁。
@@ -23,19 +26,21 @@ public class DiscoverUtils {
                 client.create().forPath(servicePath);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("【注册服务】失败, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort(), e);
         }
 
         try {
             String appPath = "/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort();
             if (client.checkExists().forPath(appPath) == null) {
                 client.create().forPath(appPath);
+                log.info("【注册服务】成功, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
                 return 1;
             } else {
+                log.warn("【注册服务】不生效（该服务已被注册）, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
                 return 0;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("【注册服务】失败,error:{}", e.getMessage(), e);
             return -1;
         }
     }
@@ -44,6 +49,7 @@ public class DiscoverUtils {
         ArrayList<ServicePojo> servicePojosList = Lists.newArrayList();
         CuratorFramework client = ClientFactory.getClient();
         try {
+            log.info("【查询服务】准备中, name:{}", name);
             List<String> serviceAddressList = client.getChildren().forPath("/discover/" + name);
             for (String address : serviceAddressList) {
                 String[] ipPortArr = address.split(":");
@@ -55,7 +61,7 @@ public class DiscoverUtils {
                 servicePojosList.add(servicePojo);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("【查询服务】失败,error:{}", e.getMessage(), e);
         }
         return servicePojosList;
     }
@@ -63,10 +69,11 @@ public class DiscoverUtils {
     public static boolean cancel(ServicePojo servicePojo) {
         CuratorFramework client = ClientFactory.getClient();
         try {
+            log.info("【注销服务】准备中, name:{}, host:{} , port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
             client.delete().forPath("/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort());
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("【注销服务】失败,error:{}", e.getMessage(), e);
             return false;
         }
     }
