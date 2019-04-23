@@ -71,6 +71,7 @@ public class DiscoverUtils {
         try {
             log.info("【注销服务】准备中, name:{}, host:{} , port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
             client.delete().forPath("/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort());
+
             return true;
         } catch (Exception e) {
             log.error("【注销服务】失败,error:{}", e.getMessage(), e);

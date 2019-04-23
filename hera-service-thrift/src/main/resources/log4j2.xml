@@ -12,12 +12,14 @@
     <Appenders>
         <Console name="con" target="SYSTEM_OUT"> <!-- 定义类型为Console的Appender -->
             <PatternLayout
+                    charset="UTF-8"
                     pattern="%d{yyyy.MM.dd 'at' HH:mm:ss.SSS} [%-5level] %t %c{10} %M %L %n%msg%n"/> <!-- 定义类型为Pattern的Layout -->
         </Console>
 
         <RollingFile name="infoRollingFile" fileName="${LOG_HOME}/${PROJECT_NAME}/info.log"
                      filePattern="%d{yyyyMMdd}.info.log">
-            <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss.SSS} [%-5level] %t %c{10} %M %L %n%msg%n"/>
+            <PatternLayout charset="UTF-8"
+                           pattern="%d{yyyy.MM.dd 'at' HH:mm:ss.SSS} [%-5level] %t %c{10} %M %L %n%msg%n"/>
             <SizeBasedTriggeringPolicy size="10MB"/> <!-- 日志文件大小 -->
             <DefaultRolloverStrategy max="20"/> <!-- 最多保留文件数 -->
             <!--<Append value="false"/>-->  <!--追加模式还是覆盖模式-->

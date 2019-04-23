@@ -1,19 +1,20 @@
 package com.aries.hera.client.thrift;
 
-import com.aries.com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.client.thrift.exception.CallFailedException;
 import org.apache.thrift.transport.TTransportException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
 
 //        for (int i = 0; i < 100; i++) {
 
         try {
-            System.out.println(DiscoverClient.ping());
-
-            System.out.println(DiscoverClient.getServices("lolo"));
+            log.info(DiscoverClient.ping());
+            log.info(DiscoverClient.getServices("lolo").toString());
 
 //            ServiceInfo serviceInfo = new ServiceInfo();
 //            serviceInfo.setName("lolo").setHost("222.222.222.3").setPort(7878);
