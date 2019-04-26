@@ -56,12 +56,12 @@
         <!--            <AppenderRef ref="errorRollingFile"/> &lt;!&ndash; Root Logger的Appender引用上面定义的Console &ndash;&gt;-->
         <!--        </Logger>-->
 
-        <Logger name="org.apache.zookeeper" level="warn" additivity="true">
-            <AppenderRef ref="errorRollingFile"/>
-        </Logger>
+<!--        <Logger name="org.apache.zookeeper" level="warn" additivity="true">-->
+<!--            <AppenderRef ref="errorRollingFile"/>-->
+<!--        </Logger>-->
 
-        <Logger name="org.apache.curator" level="warn" additivity="true">
-            <AppenderRef ref="errorRollingFile"/>
-        </Logger>
+<!--        <Logger name="org.apache.curator" level="warn" additivity="true">-->
+<!--            <AppenderRef ref="errorRollingFile"/>-->
+<!--        </Logger>-->
     </Loggers>
 </Configuration>

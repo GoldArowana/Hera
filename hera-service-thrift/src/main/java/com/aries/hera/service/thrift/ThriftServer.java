@@ -32,10 +32,8 @@ public class ThriftServer {
                     log.info("服务启动,端口:{}", port);
                     server.serve();
 
-
-
                 } catch (Exception e) {
-                    log.error("启动服务异常,error:{}", e.getMessage(), e);
+                    log.error("服务异常,error:{}", e.getMessage(), e);
                 }
             }, "thrift-service-starter-thread").start();
 
