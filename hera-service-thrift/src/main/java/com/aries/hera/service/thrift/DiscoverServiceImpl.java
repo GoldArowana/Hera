@@ -17,7 +17,7 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
 
 
     public String ping() throws TException {
-        log.info("收到一个ping请求，返回pong。");
+        log.debug("收到一个ping请求，返回pong。");
         return "pong";
     }
 

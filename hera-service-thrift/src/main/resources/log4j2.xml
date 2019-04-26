@@ -47,8 +47,8 @@
     <Loggers>
         <Root level="debug"> <!-- 定义Root Logger -->
             <AppenderRef ref="con"/> <!-- Root Logger的Appender引用上面定义的Console -->
-            <AppenderRef ref="infoRollingFile"/> <!-- Root Logger的Appender引用上面定义的Console -->
-            <AppenderRef ref="errorRollingFile"/> <!-- Root Logger的Appender引用上面定义的Console -->
+            <AppenderRef ref="infoRollingFile"/>
+            <AppenderRef ref="errorRollingFile"/>
         </Root>
 
         <!--        <Logger name="com.aries.hera" level="debug" additivity="true">-->
@@ -56,7 +56,12 @@
         <!--            <AppenderRef ref="errorRollingFile"/> &lt;!&ndash; Root Logger的Appender引用上面定义的Console &ndash;&gt;-->
         <!--        </Logger>-->
 
-        <Logger name="org.apache.zookeeper" level="warn" additivity="true"/>
-        <Logger name="org.apache.curator" level="warn" additivity="true"/>
+        <Logger name="org.apache.zookeeper" level="warn" additivity="true">
+            <AppenderRef ref="errorRollingFile"/>
+        </Logger>
+
+        <Logger name="org.apache.curator" level="warn" additivity="true">
+            <AppenderRef ref="errorRollingFile"/>
+        </Logger>
     </Loggers>
 </Configuration>
