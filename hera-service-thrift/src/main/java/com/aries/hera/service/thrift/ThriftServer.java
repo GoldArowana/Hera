@@ -25,7 +25,9 @@ public class ThriftServer {
             { // 准备注册 DepartmentService
                 DiscoverService.Iface discoverService = new DiscoverServiceImpl();
                 DiscoverService.Processor discoverProcessor = new DiscoverService.Processor(discoverService);
-                processor.registerProcessor(DiscoverService.class.getSimpleName(), discoverProcessor);
+                String simpleName = DiscoverService.class.getSimpleName();
+                processor.registerProcessor(simpleName, discoverProcessor);
+                log.info("simpleName:{}", simpleName);
             }
 
             PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
