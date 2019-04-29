@@ -5,3 +5,6 @@
 **/*.log
 **/*.out
 **/*.versionsBackup
+**/database.properties
+**/out
+**/thrift/gen-java

@@ -1,6 +1,6 @@
 package com.aries.hera.client.thrift;
 
-import com.aries.com.aries.hera.contract.thrift.service.DiscoverService;
+import com.aries.hera.contract.thrift.service.DiscoverService;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TTransport;

@@ -1,6 +1,6 @@
 package com.aries.hera.client.thrift;
 
-import com.aries.com.aries.hera.contract.thrift.dto.ServiceInfo;
+import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.core.utils.PropertiesProxy;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;

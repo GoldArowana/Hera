@@ -1,6 +1,6 @@
 package com.aries.hera.service.thrift;
 
-import com.aries.com.aries.hera.contract.thrift.service.DiscoverService;
+import com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.core.utils.PropertiesProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.server.TServer;

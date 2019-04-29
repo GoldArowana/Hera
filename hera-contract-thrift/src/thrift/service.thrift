@@ -1,4 +1,4 @@
-namespace java com.aries.com.aries.hera.contract.thrift.service
+namespace java com.aries.hera.contract.thrift.service
 
 include "dto.thrift"
 

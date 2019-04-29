@@ -1,7 +1,7 @@
 package com.aries.hera.service.thrift;
 
-import com.aries.com.aries.hera.contract.thrift.dto.ServiceInfo;
-import com.aries.com.aries.hera.contract.thrift.service.DiscoverService;
+import com.aries.hera.contract.thrift.dto.ServiceInfo;
+import com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.core.DiscoverUtils;
 import com.aries.hera.core.pojo.ServicePojo;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class DiscoverServiceImpl implements DiscoverService.Iface {
-
 
     public String ping() throws TException {
         log.debug("收到一个ping请求，返回pong。");

@@ -1,7 +1,5 @@
 package com.aries.hera.client.thrift;
 
-import com.aries.hera.client.thrift.exception.CallFailedException;
-import org.apache.thrift.transport.TTransportException;
 import org.junit.Test;
 
 public class MainTest {

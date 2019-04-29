@@ -1,4 +1,4 @@
-namespace java com.aries.com.aries.hera.contract.thrift.dto
+namespace java com.aries.hera.contract.thrift.dto
 
 struct ServiceInfo {
   1: string name,
