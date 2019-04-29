@@ -2,6 +2,7 @@ package com.aries.hera.client.thrift;
 
 import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.hera.client.thrift.exception.ThriftRuntimeException;
+import com.aries.hera.client.thrift.function.Try;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -16,10 +17,10 @@ import java.util.function.Function;
 
 @Slf4j
 public class ThriftHelper {
-    public static <Type, RET> RET call(String appName, Class<Type> typeClass, Function<Type, RET> function) throws TTransportException, ServiceNotFoundException {
+    public static <Type, RET> RET call(String appName, Class<Type> typeClass, Try.UncheckedFunction<Type, RET> function) throws TTransportException, ServiceNotFoundException {
         ServiceInfo firstService = DiscoverClient.getFirstService(appName);
         String serviceName = typeClass.getEnclosingClass().getSimpleName();
-        return call(typeClass, function, serviceName, firstService.getHost(), firstService.getPort());
+        return call(typeClass, Try.of(function), serviceName, firstService.getHost(), firstService.getPort());
     }
 
     public static <Type, RET> RET call(Class<Type> typeClass, Function<Type, RET> function, String host, int port) throws TTransportException {

@@ -1,7 +1,6 @@
 package com.aries.hera.client.thrift;
 
-import com.aries.hera.client.thrift.exception.CallFailedException;
-import org.apache.thrift.transport.TTransportException;
+import com.aries.hera.contract.thrift.service.DiscoverService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ public class Main {
 //        for (int i = 0; i < 100; i++) {
 
 //        try {
-            log.info(DiscoverClient.ping());
+        log.info(DiscoverClient.ping());
 //            log.info(DiscoverClient.getServices("lolo").toString());
 
 //            ServiceInfo serviceInfo = new ServiceInfo();
@@ -30,6 +29,5 @@ public class Main {
 //            e.printStackTrace();
 //        }
 //        }
-
     }
 }
