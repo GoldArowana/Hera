@@ -3,6 +3,7 @@ package com.aries.hera.service.thrift;
 import com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.core.utils.PropertiesProxy;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.thrift.TMultiplexedProcessor;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
 import org.apache.thrift.server.TSimpleServer;
@@ -19,11 +20,19 @@ public class ThriftServer {
 
     public static void main(String[] args) {
         try {
-            service = new DiscoverServiceImpl();
-            processor = new DiscoverService.Processor(service);
 
             new Thread(() -> {
                 try {
+
+                    TMultiplexedProcessor processor = new TMultiplexedProcessor();
+
+                    { // 准备注册 DepartmentService
+                        DiscoverService.Iface discoverService = new DiscoverServiceImpl();
+                        DiscoverService.Processor discoverProcessor = new DiscoverService.Processor(discoverService);
+                        processor.registerProcessor(DiscoverService.class.getSimpleName(), discoverProcessor);
+                    }
+
+
                     PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
                     int port = Integer.parseInt(propertiesProxy.readProperty("port"));
 
