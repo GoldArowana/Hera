@@ -5,7 +5,7 @@
     <parent>
         <artifactId>Hera</artifactId>
         <groupId>com.aries.hera</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,12 +29,12 @@
         <dependency>
             <groupId>com.aries.hera</groupId>
             <artifactId>hera-contract-thrift</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.aries.hera</groupId>
             <artifactId>hera-core</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
