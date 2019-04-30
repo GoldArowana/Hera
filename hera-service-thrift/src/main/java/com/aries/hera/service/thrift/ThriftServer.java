@@ -46,7 +46,7 @@ public class ThriftServer {
                 }
             }, "thrift-service-starter-thread").start();
 
-            DiscoverUtils.registe(ServicePojo.builder().name("hera").host(host).port(port).build());
+            DiscoverUtils.registe(ServicePojo.builder().name("Hera").host(host).port(port).build());
 
         } catch (Exception x) {
             log.error("创建服务失败,error:{}", x.getMessage(), x);

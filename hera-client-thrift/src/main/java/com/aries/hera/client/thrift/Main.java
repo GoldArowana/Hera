@@ -12,7 +12,7 @@ public class Main {
 //        for (int i = 0; i < 100; i++) {
 
 //        try {
-        log.info(DiscoverClient.ping());
+//        log.info(DiscoverClient.ping());
 //            log.info(DiscoverClient.getServices("lolo").toString());
 
 //            ServiceInfo serviceInfo = new ServiceInfo();
@@ -29,5 +29,8 @@ public class Main {
 //            e.printStackTrace();
 //        }
 //        }
+
+        String result = ThriftHelper.call("hera", DiscoverService.Client.class, client -> client.ping());
+        System.out.println(result);
     }
 }
