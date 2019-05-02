@@ -1,5 +1,6 @@
 package com.aries.hera.client.thrift;
 
+import com.alibaba.fastjson.JSON;
 import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.hera.client.thrift.exception.ThriftRuntimeException;
 import com.aries.hera.client.thrift.function.Try;
@@ -34,7 +35,11 @@ public class ThriftHelper {
             TMultiplexedProtocol multiplexedProtocol = new TMultiplexedProtocol(protocol, serviceName);
             transport.open();
             Type client = typeClass.getDeclaredConstructor(org.apache.thrift.protocol.TProtocol.class).newInstance(multiplexedProtocol);
-            return function.apply(client);
+            RET result = function.apply(client);
+            if (log.isDebugEnabled()) {
+                log.debug("result:{}", JSON.toJSONString(result));
+            }
+            return result;
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
             log.error("newInstance实例化失败", e);
             throw new ThriftRuntimeException("newInstance实例化失败", e);
