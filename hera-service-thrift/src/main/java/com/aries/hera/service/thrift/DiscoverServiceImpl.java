@@ -36,7 +36,7 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
             .setPort(servicePojo.getPort())
             .setHost(servicePojo.getHost());
 
-    private Function<ServiceInfo, ServicePojo> serviceInfo2ServicePojo2 = (serviceInfo) -> ServicePojo.builder()
+    private Function<ServiceInfo, ServicePojo> serviceInfo2ServicePojo = (serviceInfo) -> ServicePojo.builder()
             .name(serviceInfo.getName())
             .host(serviceInfo.getHost())
             .port(serviceInfo.getPort())
@@ -50,13 +50,13 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
     @Override
     public short registe(ServiceInfo serviceInfo) throws TException {
         log.info("注册，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
-        return DiscoverUtils.registe(serviceInfo2ServicePojo2.apply(serviceInfo));
+        return DiscoverUtils.registe(serviceInfo2ServicePojo.apply(serviceInfo));
     }
 
     @Override
     public boolean cancel(ServiceInfo serviceInfo) throws TException {
         log.info("注销服务，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
-        return DiscoverUtils.cancel(serviceInfo2ServicePojo2.apply(serviceInfo));
+        return DiscoverUtils.cancel(serviceInfo2ServicePojo.apply(serviceInfo));
     }
 
 }

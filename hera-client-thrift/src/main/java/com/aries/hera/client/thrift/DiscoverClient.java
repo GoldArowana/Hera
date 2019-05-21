@@ -37,6 +37,7 @@ public class DiscoverClient {
         PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
         String host = propertiesProxy.readProperty("host");
         int port = Integer.parseInt(propertiesProxy.readProperty("port"));
+
         return ThriftHelper.call(DiscoverService.Client.class, Try.of(client -> client.getServiceList(serviceName)), host, port);
     }
 

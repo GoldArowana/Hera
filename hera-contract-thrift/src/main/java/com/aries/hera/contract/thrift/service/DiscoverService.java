@@ -689,7 +689,9 @@ public class DiscoverService {
         private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new ping_argsTupleSchemeFactory();
 
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             ;
 
@@ -784,7 +786,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -947,7 +951,9 @@ public class DiscoverService {
         public @org.apache.thrift.annotation.Nullable
         String success; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -1059,7 +1065,9 @@ public class DiscoverService {
             this.success = null;
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return this.success != null;
         }
@@ -1093,7 +1101,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -1314,7 +1324,9 @@ public class DiscoverService {
         public @org.apache.thrift.annotation.Nullable
         String servicename; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SERVICENAME((short) 1, "servicename");
 
@@ -1426,7 +1438,9 @@ public class DiscoverService {
             this.servicename = null;
         }
 
-        /** Returns true if field servicename is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field servicename is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetServicename() {
             return this.servicename != null;
         }
@@ -1460,7 +1474,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -1681,7 +1697,9 @@ public class DiscoverService {
         public @org.apache.thrift.annotation.Nullable
         java.util.List<com.aries.hera.contract.thrift.dto.ServiceInfo> success; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -1814,7 +1832,9 @@ public class DiscoverService {
             this.success = null;
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return this.success != null;
         }
@@ -1848,7 +1868,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -2099,7 +2121,9 @@ public class DiscoverService {
         public @org.apache.thrift.annotation.Nullable
         com.aries.hera.contract.thrift.dto.ServiceInfo serviceInfo; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SERVICE_INFO((short) 1, "serviceInfo");
 
@@ -2211,7 +2235,9 @@ public class DiscoverService {
             this.serviceInfo = null;
         }
 
-        /** Returns true if field serviceInfo is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field serviceInfo is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetServiceInfo() {
             return this.serviceInfo != null;
         }
@@ -2245,7 +2271,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -2470,7 +2498,9 @@ public class DiscoverService {
 
         public short success; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -2585,7 +2615,9 @@ public class DiscoverService {
             __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __SUCCESS_ISSET_ID);
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __SUCCESS_ISSET_ID);
         }
@@ -2617,7 +2649,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -2834,7 +2868,9 @@ public class DiscoverService {
         public @org.apache.thrift.annotation.Nullable
         com.aries.hera.contract.thrift.dto.ServiceInfo serviceInfo; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SERVICE_INFO((short) 1, "serviceInfo");
 
@@ -2946,7 +2982,9 @@ public class DiscoverService {
             this.serviceInfo = null;
         }
 
-        /** Returns true if field serviceInfo is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field serviceInfo is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetServiceInfo() {
             return this.serviceInfo != null;
         }
@@ -2980,7 +3018,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -3205,7 +3245,9 @@ public class DiscoverService {
 
         public boolean success; // required
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -3320,7 +3362,9 @@ public class DiscoverService {
             __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __SUCCESS_ISSET_ID);
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __SUCCESS_ISSET_ID);
         }
@@ -3352,7 +3396,9 @@ public class DiscoverService {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
