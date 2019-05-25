@@ -1,9 +1,9 @@
-package com.aries.hera.service.thrift;
+package com.aries.hera.service.thrift.impl;
 
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.contract.thrift.service.DiscoverService;
-import com.aries.hera.core.DiscoverUtils;
-import com.aries.hera.core.pojo.ServicePojo;
+import com.aries.hera.service.thrift.worker.DiscoverWorker;
+import com.aries.hera.service.thrift.pojo.ServicePojo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 
@@ -22,7 +22,7 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
 
     @Override
     public List<ServiceInfo> getServiceList(String serviceName) throws TException {
-        List<ServicePojo> servicePojos = DiscoverUtils.discover(serviceName);
+        List<ServicePojo> servicePojos = DiscoverWorker.discover(serviceName);
         if (servicePojos == null) {
             log.warn("服务：{}未找到。返回空列表", serviceName);
             return Collections.emptyList();
@@ -50,13 +50,13 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
     @Override
     public short registe(ServiceInfo serviceInfo) throws TException {
         log.info("注册，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
-        return DiscoverUtils.registe(serviceInfo2ServicePojo.apply(serviceInfo));
+        return DiscoverWorker.registe(serviceInfo2ServicePojo.apply(serviceInfo));
     }
 
     @Override
     public boolean cancel(ServiceInfo serviceInfo) throws TException {
         log.info("注销服务，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
-        return DiscoverUtils.cancel(serviceInfo2ServicePojo.apply(serviceInfo));
+        return DiscoverWorker.cancel(serviceInfo2ServicePojo.apply(serviceInfo));
     }
 
 }

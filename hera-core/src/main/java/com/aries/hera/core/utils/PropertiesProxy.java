@@ -1,13 +1,16 @@
 package com.aries.hera.core.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Objects;
 import java.util.Properties;
 
-@Slf4j
+
 public class PropertiesProxy {
+    private static final Logger log = LoggerFactory.getLogger(PropertiesProxy.class);
+
     private String propertiesName;
 
     public PropertiesProxy(String propertiesName) {
@@ -15,15 +18,24 @@ public class PropertiesProxy {
     }
 
     public String readProperty(String key) {
-        String value = "";
         try (InputStream is = PropertiesProxy.class.getClassLoader().getResourceAsStream(propertiesName)) {
-            Properties p = new Properties();
-            p.load(is);
-            value = p.getProperty(key);
+            if (is != null) {
+                Properties p = new Properties();
+                p.load(is);
+                return p.getProperty(key);
+            }
         } catch (IOException e) {
             log.error("PropertiesProxy error:{}", e.getMessage(), e);
         }
-        return value;
+
+        try (InputStream is = new FileInputStream(propertiesName)) {
+            Properties p = new Properties();
+            p.load(is);
+            return p.getProperty(key);
+        } catch (IOException e) {
+            log.error("PropertiesProxy error:{}", e.getMessage(), e);
+        }
+        return null;
     }
 
     public Properties getProperties() {

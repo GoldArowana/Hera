@@ -21,23 +21,25 @@ public class DiscoverClient {
 
     private static final Set<ServiceInfo> needShutdownServices = new HashSet<>();
 
+    private static final String host;
+    private static final int port;
+
     static {
+        PropertiesProxy propertiesProxy = new PropertiesProxy("/opt/config/server-mapping.porperties");
+        String hera = propertiesProxy.readProperty("Hera");
+        host = hera.split(":")[0];
+        port = Integer.parseInt(hera.split(":")[1]);
+
         // jvm关闭时会执行这里
         Runtime.getRuntime().addShutdownHook(new Thread(DiscoverClient::shutAllDown));
     }
 
     public static String ping() throws TException {
-        PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
-        String host = propertiesProxy.readProperty("host");
-        int port = Integer.parseInt(propertiesProxy.readProperty("port"));
         return ThriftHelper.call(DiscoverService.Client.class, Try.of((DiscoverService.Client::ping)), host, port);
     }
 
     public static List<ServiceInfo> getServices(String serviceName) throws TTransportException {
-        PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
-        String host = propertiesProxy.readProperty("host");
-        int port = Integer.parseInt(propertiesProxy.readProperty("port"));
-
+        PropertiesProxy propertiesProxy = new PropertiesProxy("/opt/config/server-mapping.porperties");
         return ThriftHelper.call(DiscoverService.Client.class, Try.of(client -> client.getServiceList(serviceName)), host, port);
     }
 
@@ -51,9 +53,6 @@ public class DiscoverClient {
 
     public static short registe(ServiceInfo serviceInfo) throws TTransportException, CallFailedException {
         ServiceInfo serviceInfoCopied = new ServiceInfo(serviceInfo);
-        PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
-        String host = propertiesProxy.readProperty("host");
-        int port = Integer.parseInt(propertiesProxy.readProperty("port"));
         short state = ThriftHelper.call(DiscoverService.Client.class, Try.of(client -> client.registe(serviceInfoCopied)), host, port);
         if (state == 1 || state == 0) {
             needShutdownServices.add(serviceInfoCopied);
@@ -61,12 +60,7 @@ public class DiscoverClient {
         return state;
     }
 
-    public static void shutAllDown() {
-        PropertiesProxy propertiesProxy = new PropertiesProxy("hera-service.properties");
-        String host = propertiesProxy.readProperty("host");
-        int port = Integer.parseInt(propertiesProxy.readProperty("port"));
-
-
+    private static void shutAllDown() {
         for (ServiceInfo serviceInfo : needShutdownServices) {
             try {
                 ThriftHelper.call(DiscoverService.Client.class, Try.of(client -> client.cancel(serviceInfo)), host, port);

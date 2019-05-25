@@ -1,15 +1,18 @@
-package com.aries.hera.core;
+package com.aries.hera.service.thrift.worker;
 
-import com.aries.hera.core.pojo.ServicePojo;
+import com.aries.hera.core.factory.ClientFactory;
+import com.aries.hera.core.utils.PropertiesProxy;
+import com.aries.hera.service.thrift.pojo.ServicePojo;
 import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
-public class DiscoverUtils {
+public class DiscoverWorker {
+    private static final Logger log = LoggerFactory.getLogger(PropertiesProxy.class);
 
     /**
      * 返回1表示注册成功

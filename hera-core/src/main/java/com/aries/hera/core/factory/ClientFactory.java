@@ -1,4 +1,4 @@
-package com.aries.hera.core;
+package com.aries.hera.core.factory;
 
 import com.aries.hera.core.utils.PropertiesProxy;
 import org.apache.curator.framework.CuratorFramework;

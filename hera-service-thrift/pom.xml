@@ -46,7 +46,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.aries.hera.service.thrift.ThriftServer</mainClass>
+                            <mainClass>com.aries.hera.service.thrift.ThriftServerStarter</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
