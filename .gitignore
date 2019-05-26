@@ -8,3 +8,4 @@
 **/database.properties
 **/out
 **/thrift/gen-java
+hera-core/src/main/resources/conf.properties
