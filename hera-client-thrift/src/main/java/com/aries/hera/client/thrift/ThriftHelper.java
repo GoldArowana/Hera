@@ -5,6 +5,8 @@ import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.hera.client.thrift.exception.ThriftRuntimeException;
 import com.aries.hera.client.thrift.function.Try;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
+import com.aries.hera.core.utils.PropertiesProxy;
+import javafx.util.Pair;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TMultiplexedProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -15,14 +17,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import java.util.function.Function;
 
 public class ThriftHelper {
     private static final Logger log = LoggerFactory.getLogger(ThriftHelper.class);
+    private static final HashMap<String, Pair<String, Integer>> serviceInfoMap = new HashMap<>();
+
+    static {
+        PropertiesProxy propertiesProxy = new PropertiesProxy("/opt/config/server-mapping.porperties");
+        Properties mappingInfos = propertiesProxy.getProperties();
+        Set<Map.Entry<Object, Object>> infos = mappingInfos.entrySet();
+        for (Map.Entry<Object, Object> info : infos) {
+            String name = info.getKey().toString(); // 服务的名字
+            String inf = info.getValue().toString(); // ip:端口
+            String[] hostAndPort = inf.split(":");
+            serviceInfoMap.put(name, new Pair<>(hostAndPort[0], Integer.parseInt(hostAndPort[1])));
+        }
+    }
 
     public static <Type, RET> RET call(String appName, Class<Type> typeClass, Try.UncheckedFunction<Type, RET> function) throws TTransportException, ServiceNotFoundException {
-        ServiceInfo firstService = DiscoverClient.getFirstService(appName);
+        Pair<String, Integer> hostAndPort = serviceInfoMap.get(appName);
         String serviceName = typeClass.getEnclosingClass().getSimpleName();
+
+        if (hostAndPort != null) {
+            return call(typeClass, Try.of(function), serviceName, hostAndPort.getKey(), hostAndPort.getValue());
+        }
+
+        ServiceInfo firstService = DiscoverClient.getFirstService(appName);
         return call(typeClass, Try.of(function), serviceName, firstService.getHost(), firstService.getPort());
     }
 
