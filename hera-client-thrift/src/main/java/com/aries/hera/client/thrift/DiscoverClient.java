@@ -3,6 +3,7 @@ package com.aries.hera.client.thrift;
 import com.aries.hera.client.thrift.exception.CallFailedException;
 import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.hera.client.thrift.function.Try;
+import com.aries.hera.contract.thrift.dto.RegistCode;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.core.utils.PropertiesProxy;
@@ -51,10 +52,10 @@ public class DiscoverClient {
         return services.get(0);
     }
 
-    public static short registe(ServiceInfo serviceInfo) throws TTransportException, CallFailedException {
+    public static RegistCode registe(ServiceInfo serviceInfo) throws TTransportException, CallFailedException {
         ServiceInfo serviceInfoCopied = new ServiceInfo(serviceInfo);
-        short state = ThriftHelper.call(DiscoverService.Client.class, Try.of(client -> client.registe(serviceInfoCopied)), host, port);
-        if (state == 1 || state == 0) {
+        RegistCode state = ThriftHelper.call(DiscoverService.Client.class, Try.of(client -> client.registe(serviceInfoCopied)), host, port);
+        if (state.getValue() == 1 || state.getValue() == 0) {
             needShutdownServices.add(serviceInfoCopied);
         }
         return state;

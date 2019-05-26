@@ -5,19 +5,21 @@ import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.hera.client.thrift.exception.ThriftRuntimeException;
 import com.aries.hera.client.thrift.function.Try;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TMultiplexedProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Function;
 
-@Slf4j
 public class ThriftHelper {
+    private static final Logger log = LoggerFactory.getLogger(ThriftHelper.class);
+
     public static <Type, RET> RET call(String appName, Class<Type> typeClass, Try.UncheckedFunction<Type, RET> function) throws TTransportException, ServiceNotFoundException {
         ServiceInfo firstService = DiscoverClient.getFirstService(appName);
         String serviceName = typeClass.getEnclosingClass().getSimpleName();

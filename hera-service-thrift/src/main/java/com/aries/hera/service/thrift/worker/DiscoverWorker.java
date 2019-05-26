@@ -1,5 +1,6 @@
 package com.aries.hera.service.thrift.worker;
 
+import com.aries.hera.contract.thrift.dto.RegistCode;
 import com.aries.hera.core.factory.ClientFactory;
 import com.aries.hera.core.utils.PropertiesProxy;
 import com.aries.hera.service.thrift.pojo.ServicePojo;
@@ -19,7 +20,7 @@ public class DiscoverWorker {
      * 返回0表示，已经存在该节点，未变更。
      * 返回-1表示，异常，注册失败
      */
-    public static short registe(ServicePojo servicePojo) {
+    public static RegistCode registe(ServicePojo servicePojo) {
         log.info("【注册服务】准备中, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
         CuratorFramework client = ClientFactory.getClient();
         try {
@@ -37,14 +38,14 @@ public class DiscoverWorker {
             if (client.checkExists().forPath(appPath) == null) {
                 client.create().forPath(appPath);
                 log.info("【注册服务】成功, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
-                return 1;
+                return RegistCode.SUCCESS;
             } else {
                 log.warn("【注册服务】不生效（该服务已被注册）, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
-                return 0;
+                return RegistCode.NOT_CHANGE;
             }
         } catch (Exception e) {
             log.error("【注册服务】失败,error:{}", e.getMessage(), e);
-            return -1;
+            return RegistCode.FAILED;
         }
     }
 

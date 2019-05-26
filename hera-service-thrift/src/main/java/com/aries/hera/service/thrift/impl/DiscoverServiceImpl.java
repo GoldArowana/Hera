@@ -1,9 +1,10 @@
 package com.aries.hera.service.thrift.impl;
 
+import com.aries.hera.contract.thrift.dto.RegistCode;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.contract.thrift.service.DiscoverService;
-import com.aries.hera.service.thrift.worker.DiscoverWorker;
 import com.aries.hera.service.thrift.pojo.ServicePojo;
+import com.aries.hera.service.thrift.worker.DiscoverWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 
@@ -48,7 +49,7 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
      * 返回-1表示，异常，注册失败
      */
     @Override
-    public short registe(ServiceInfo serviceInfo) throws TException {
+    public RegistCode registe(ServiceInfo serviceInfo) throws TException {
         log.info("注册，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
         return DiscoverWorker.registe(serviceInfo2ServicePojo.apply(serviceInfo));
     }

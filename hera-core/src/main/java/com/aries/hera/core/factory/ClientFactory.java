@@ -11,6 +11,11 @@ import static com.aries.hera.core.constance.ConfConst.ZK_ADDRESS;
 public class ClientFactory {
     private static volatile CuratorFramework client = null;
 
+    /**
+     * 获取zk的客户端。 双重校验锁，单例。
+     *
+     * @return
+     */
     public static CuratorFramework getClient() {
         if (client == null) {
             synchronized (ClientFactory.class) {

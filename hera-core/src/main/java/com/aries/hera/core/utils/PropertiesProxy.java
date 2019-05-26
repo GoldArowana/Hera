@@ -18,6 +18,7 @@ public class PropertiesProxy {
     }
 
     public String readProperty(String key) {
+        // 从classpath读取文件
         try (InputStream is = PropertiesProxy.class.getClassLoader().getResourceAsStream(propertiesName)) {
             if (is != null) {
                 Properties p = new Properties();
@@ -28,6 +29,7 @@ public class PropertiesProxy {
             log.error("PropertiesProxy error:{}", e.getMessage(), e);
         }
 
+        // 如果从classpath没找到文件，那么把propertiesName当作绝对路径来寻找文件。
         try (InputStream is = new FileInputStream(propertiesName)) {
             Properties p = new Properties();
             p.load(is);
@@ -35,6 +37,8 @@ public class PropertiesProxy {
         } catch (IOException e) {
             log.error("PropertiesProxy error:{}", e.getMessage(), e);
         }
+
+        // 如果都没有找到。
         return null;
     }
 

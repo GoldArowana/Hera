@@ -10,7 +10,7 @@ service DiscoverService {
 
    list<dto.ServiceInfo> getServiceList(1:string servicename)
 
-   i16 registe(1:dto.ServiceInfo serviceInfo)
+   dto.RegistCode registe(1:dto.ServiceInfo serviceInfo)
 
    bool cancel(1:dto.ServiceInfo serviceInfo)
 }
