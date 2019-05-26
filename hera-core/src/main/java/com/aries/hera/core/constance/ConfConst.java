@@ -4,7 +4,7 @@ public class ConfConst {
     /**
      * 本项目的app名。服务注册/发现将使用本名字。/opt/config/server-mapping.porperties里也会使用本名字
      */
-    public static final String APP_NAME = "Hera";
+    public static final String HERA_APP_NAME = "Hera";
 
     /**
      * 本系统启动时的端口

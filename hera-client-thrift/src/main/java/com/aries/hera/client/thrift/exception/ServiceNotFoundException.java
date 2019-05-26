@@ -1,6 +1,6 @@
 package com.aries.hera.client.thrift.exception;
 
-public class ServiceNotFoundException extends Exception {
+public class ServiceNotFoundException extends RuntimeException {
     public ServiceNotFoundException(String message) {
         super(message);
     }

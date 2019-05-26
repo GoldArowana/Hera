@@ -13,7 +13,7 @@ import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 
-import static com.aries.hera.core.constance.ConfConst.APP_NAME;
+import static com.aries.hera.core.constance.ConfConst.HERA_APP_NAME;
 import static com.aries.hera.core.constance.ConfConst.PORT;
 
 
@@ -48,7 +48,7 @@ public class ThriftServerStarter {
                 }
             }, "thrift-service-starter-thread").start();
 
-            ServicePojo thisHera = ServicePojo.builder().name(APP_NAME).host(host).port(PORT).build();
+            ServicePojo thisHera = ServicePojo.builder().name(HERA_APP_NAME).host(host).port(PORT).build();
 
             DiscoverWorker.registe(thisHera);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> DiscoverWorker.cancel(thisHera)));

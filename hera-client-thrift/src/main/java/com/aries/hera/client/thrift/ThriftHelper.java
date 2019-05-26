@@ -6,7 +6,7 @@ import com.aries.hera.client.thrift.exception.ThriftRuntimeException;
 import com.aries.hera.client.thrift.function.Try;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.core.utils.PropertiesProxy;
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TMultiplexedProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -35,16 +35,16 @@ public class ThriftHelper {
             String name = info.getKey().toString(); // 服务的名字
             String inf = info.getValue().toString(); // ip:端口
             String[] hostAndPort = inf.split(":");
-            serviceInfoMap.put(name, new Pair<>(hostAndPort[0], Integer.parseInt(hostAndPort[1])));
+            serviceInfoMap.put(name, Pair.of(hostAndPort[0], Integer.parseInt(hostAndPort[1])));
         }
     }
 
-    public static <Type, RET> RET call(String appName, Class<Type> typeClass, Try.UncheckedFunction<Type, RET> function) throws TTransportException, ServiceNotFoundException {
+    public static <Type, RET> RET call(String appName, Class<Type> typeClass, Try.UncheckedFunction<Type, RET> function) throws TTransportException {
         Pair<String, Integer> hostAndPort = serviceInfoMap.get(appName);
         String serviceName = typeClass.getEnclosingClass().getSimpleName();
 
         if (hostAndPort != null) {
-            return call(typeClass, Try.of(function), serviceName, hostAndPort.getKey(), hostAndPort.getValue());
+            return call(typeClass, Try.of(function), serviceName, hostAndPort.getLeft(), hostAndPort.getRight());
         }
 
         ServiceInfo firstService = DiscoverClient.getFirstService(appName);
