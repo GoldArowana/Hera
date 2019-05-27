@@ -23,7 +23,7 @@ public class MainTest {
         PropertiesProxy propertiesProxy = new PropertiesProxy("/opt/config/server-mapping.porperties");
         Properties mappingInfos = propertiesProxy.getProperties();
         Enumeration<Object> names = mappingInfos.keys();
-        while(names.hasMoreElements()){
+        while (names.hasMoreElements()) {
             Object name = names.nextElement();
             System.out.println(name);
         }

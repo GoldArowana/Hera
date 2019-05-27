@@ -1,7 +1,6 @@
 package com.aries.hera.client.thrift;
 
 import com.alibaba.fastjson.JSON;
-import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.hera.client.thrift.exception.ThriftRuntimeException;
 import com.aries.hera.client.thrift.function.Try;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;

@@ -25,7 +25,9 @@ public class ServiceInfo implements org.apache.thrift.TBase<ServiceInfo, Service
     java.lang.String host; // required
     public int port; // required
 
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    /**
+     * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+     */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
         NAME((short) 1, "name"),
         HOST((short) 2, "host"),
@@ -162,7 +164,9 @@ public class ServiceInfo implements org.apache.thrift.TBase<ServiceInfo, Service
         this.name = null;
     }
 
-    /** Returns true if field name is set (has been assigned a value) and false otherwise */
+    /**
+     * Returns true if field name is set (has been assigned a value) and false otherwise
+     */
     public boolean isSetName() {
         return this.name != null;
     }
@@ -187,7 +191,9 @@ public class ServiceInfo implements org.apache.thrift.TBase<ServiceInfo, Service
         this.host = null;
     }
 
-    /** Returns true if field host is set (has been assigned a value) and false otherwise */
+    /**
+     * Returns true if field host is set (has been assigned a value) and false otherwise
+     */
     public boolean isSetHost() {
         return this.host != null;
     }
@@ -212,7 +218,9 @@ public class ServiceInfo implements org.apache.thrift.TBase<ServiceInfo, Service
         __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __PORT_ISSET_ID);
     }
 
-    /** Returns true if field port is set (has been assigned a value) and false otherwise */
+    /**
+     * Returns true if field port is set (has been assigned a value) and false otherwise
+     */
     public boolean isSetPort() {
         return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __PORT_ISSET_ID);
     }
@@ -266,7 +274,9 @@ public class ServiceInfo implements org.apache.thrift.TBase<ServiceInfo, Service
         throw new java.lang.IllegalStateException();
     }
 
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    /**
+     * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+     */
     public boolean isSet(_Fields field) {
         if (field == null) {
             throw new java.lang.IllegalArgumentException();
