@@ -70,6 +70,7 @@ public class DiscoverWorker {
         return servicePojosList;
     }
 
+
     public static boolean cancel(ServicePojo servicePojo) {
         CuratorFramework client = ClientFactory.getClient();
         try {

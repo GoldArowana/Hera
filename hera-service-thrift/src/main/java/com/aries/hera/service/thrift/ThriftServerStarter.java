@@ -33,9 +33,7 @@ public class ThriftServerStarter {
                 log.info("simpleName:{}", simpleName);
             }
 
-            PropertiesProxy propertiesProxy = new PropertiesProxy("/opt/config/local.properties");
-            String host = propertiesProxy.readProperty("host");
-
+            // 启动thrift服务
             new Thread(() -> {
                 try {
                     TServerTransport serverTransport = new TServerSocket(PORT);
@@ -48,10 +46,14 @@ public class ThriftServerStarter {
                 }
             }, "thrift-service-starter-thread").start();
 
-            ServicePojo thisHera = ServicePojo.builder().name(HERA_APP_NAME).host(host).port(PORT).build();
-
-            DiscoverWorker.registe(thisHera);
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> DiscoverWorker.cancel(thisHera)));
+            // 把自己注册进去
+            {
+                PropertiesProxy propertiesProxy = new PropertiesProxy("/opt/config/local.properties");
+                String host = propertiesProxy.readProperty("host");
+                ServicePojo thisHera = ServicePojo.builder().name(HERA_APP_NAME).host(host).port(PORT).build();
+                DiscoverWorker.registe(thisHera);
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> DiscoverWorker.cancel(thisHera)));
+            }
         } catch (Exception x) {
             log.error("创建服务失败,error:{}", x.getMessage(), x);
         }
