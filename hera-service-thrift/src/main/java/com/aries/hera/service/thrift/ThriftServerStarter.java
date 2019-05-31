@@ -10,6 +10,7 @@ import org.apache.thrift.TMultiplexedProcessor;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
 import org.apache.thrift.server.TSimpleServer;
+import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 
@@ -37,7 +38,12 @@ public class ThriftServerStarter {
             new Thread(() -> {
                 try {
                     TServerTransport serverTransport = new TServerSocket(PORT);
-                    TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
+                    TThreadPoolServer.Args poolArgs = new TThreadPoolServer.Args(serverTransport)
+                            .processor(processor)
+                            .maxWorkerThreads(16)
+                            .minWorkerThreads(2)
+                            .requestTimeout(5000);
+                    TServer server = new TThreadPoolServer(poolArgs);
                     log.info("服务启动,端口:{}", PORT);
                     server.serve();
 
