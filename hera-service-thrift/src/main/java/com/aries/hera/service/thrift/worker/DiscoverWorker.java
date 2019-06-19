@@ -23,7 +23,8 @@ public class DiscoverWorker {
     public static boolean health(ServicePojo servicePojo) {
         CuratorFramework client = ClientFactory.getClient();
         try {
-            client.setData().forPath("/test", String.valueOf(System.currentTimeMillis()).getBytes());
+            String appPath = "/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort();
+            client.setData().forPath(appPath, String.valueOf(System.currentTimeMillis()).getBytes());
             return true;
         } catch (Exception e) {
             log.error("【健康检测】失败, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort(), e);
