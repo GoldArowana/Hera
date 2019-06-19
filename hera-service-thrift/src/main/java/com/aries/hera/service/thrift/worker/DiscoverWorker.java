@@ -20,6 +20,17 @@ public class DiscoverWorker {
      * 返回0表示，已经存在该节点，未变更。
      * 返回-1表示，异常，注册失败
      */
+    public static boolean health(ServicePojo servicePojo) {
+        CuratorFramework client = ClientFactory.getClient();
+        try {
+            client.setData().forPath("/test", String.valueOf(System.currentTimeMillis()).getBytes());
+            return true;
+        } catch (Exception e) {
+            log.error("【健康检测】失败, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort(), e);
+            return false;
+        }
+    }
+
     public static RegistCode registe(ServicePojo servicePojo) {
         log.info("【注册服务】准备中, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
         CuratorFramework client = ClientFactory.getClient();
@@ -36,7 +47,7 @@ public class DiscoverWorker {
         try {
             String appPath = "/discover/" + servicePojo.getName() + "/" + servicePojo.getHost() + ":" + servicePojo.getPort();
             if (client.checkExists().forPath(appPath) == null) {
-                client.create().forPath(appPath);
+                client.create().forPath(appPath, String.valueOf(System.currentTimeMillis()).getBytes());
                 log.info("【注册服务】成功, name:{}, host:{}, port:{}", servicePojo.getName(), servicePojo.getHost(), servicePojo.getPort());
                 return RegistCode.SUCCESS;
             } else {

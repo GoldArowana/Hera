@@ -55,6 +55,12 @@ public class DiscoverServiceImpl implements DiscoverService.Iface {
     }
 
     @Override
+    public boolean health(ServiceInfo serviceInfo) throws TException {
+        log.debug("健康上报，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
+        return DiscoverWorker.health(serviceInfo2ServicePojo.apply(serviceInfo));
+    }
+
+    @Override
     public boolean cancel(ServiceInfo serviceInfo) throws TException {
         log.info("注销服务，name:{}, host:{}, ip:{}", serviceInfo.name, serviceInfo.host, serviceInfo.port);
         return DiscoverWorker.cancel(serviceInfo2ServicePojo.apply(serviceInfo));

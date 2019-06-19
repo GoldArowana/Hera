@@ -12,5 +12,7 @@ service DiscoverService {
 
    dto.RegistCode registe(1:dto.ServiceInfo serviceInfo)
 
+   bool health(1:dto.ServiceInfo serviceInfo)
+
    bool cancel(1:dto.ServiceInfo serviceInfo)
 }

@@ -36,8 +36,9 @@ public class MainTest {
     @Test
     public void t() throws CallFailedException, TTransportException, InterruptedException {
         DiscoverClient.registe(new ServiceInfo("Hermes", "localhost", 100));
-        Thread.sleep(1000*60);
+        Thread.sleep(1000 * 60);
     }
+
     @Test
     public void tt() throws CallFailedException, TTransportException, InterruptedException {
         List<ServiceInfo> hermes = DiscoverClient.getServices("Hermes");
